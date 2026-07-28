@@ -7,6 +7,14 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/ai-assistant")({
+  head: () => ({
+    meta: [
+      { title: "AI Study Assistant | EduBridge" },
+      { name: "description", content: "Ask questions, build revision plans and generate practice sets with AI." },
+      { property: "og:title", content: "AI Study Assistant | EduBridge" },
+      { property: "og:description", content: "Ask questions, build revision plans and generate practice sets with AI." },
+    ],
+  }),
   component: AiAssistant,
 });
 

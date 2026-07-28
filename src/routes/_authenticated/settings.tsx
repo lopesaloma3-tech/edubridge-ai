@@ -9,6 +9,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const Route = createFileRoute("/_authenticated/settings")({
+  head: () => ({
+    meta: [
+      { title: "Settings | EduBridge" },
+      { name: "description", content: "Manage your EduBridge profile, name and account preferences." },
+      { property: "og:title", content: "Settings | EduBridge" },
+      { property: "og:description", content: "Manage your EduBridge profile, name and account preferences." },
+    ],
+  }),
   component: Settings,
 });
 

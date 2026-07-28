@@ -9,6 +9,14 @@ import { attendanceRoster, attendanceTrend } from "@/lib/demo-data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/attendance")({
+  head: () => ({
+    meta: [
+      { title: "Attendance | EduBridge" },
+      { name: "description", content: "Monitor presence rates and mark the daily register across classes." },
+      { property: "og:title", content: "Attendance | EduBridge" },
+      { property: "og:description", content: "Monitor presence rates and mark the daily register across classes." },
+    ],
+  }),
   component: Attendance,
 });
 

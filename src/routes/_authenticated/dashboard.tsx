@@ -25,6 +25,14 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { assignments, attendanceTrend, courses, gradeTrend, attendanceRoster } from "@/lib/demo-data";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  head: () => ({
+    meta: [
+      { title: "Dashboard | EduBridge" },
+      { name: "description", content: "Your personalised campus overview: attendance, grades, courses and upcoming work." },
+      { property: "og:title", content: "Dashboard | EduBridge" },
+      { property: "og:description", content: "Your personalised campus overview: attendance, grades, courses and upcoming work." },
+    ],
+  }),
   component: Dashboard,
 });
 

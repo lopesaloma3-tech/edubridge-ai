@@ -8,6 +8,14 @@ import { conversations } from "@/lib/demo-data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/messages")({
+  head: () => ({
+    meta: [
+      { title: "Messages | EduBridge" },
+      { name: "description", content: "Chat with teachers, parents and classmates in one secure inbox." },
+      { property: "og:title", content: "Messages | EduBridge" },
+      { property: "og:description", content: "Chat with teachers, parents and classmates in one secure inbox." },
+    ],
+  }),
   component: Messages,
 });
 

@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button";
 import { fees } from "@/lib/demo-data";
 
 export const Route = createFileRoute("/_authenticated/fees")({
+  head: () => ({
+    meta: [
+      { title: "Fees | EduBridge" },
+      { name: "description", content: "Invoices, payments and receipts for tuition and campus services." },
+      { property: "og:title", content: "Fees | EduBridge" },
+      { property: "og:description", content: "Invoices, payments and receipts for tuition and campus services." },
+    ],
+  }),
   component: Fees,
 });
 

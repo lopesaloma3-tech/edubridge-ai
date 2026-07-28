@@ -5,6 +5,14 @@ import { Button } from "@/components/ui/button";
 import { courses, assignments } from "@/lib/demo-data";
 
 export const Route = createFileRoute("/_authenticated/courses")({
+  head: () => ({
+    meta: [
+      { title: "Courses | EduBridge" },
+      { name: "description", content: "Track enrolled courses, live progress and upcoming sessions in EduBridge." },
+      { property: "og:title", content: "Courses | EduBridge" },
+      { property: "og:description", content: "Track enrolled courses, live progress and upcoming sessions in EduBridge." },
+    ],
+  }),
   component: Courses,
 });
 

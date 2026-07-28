@@ -4,6 +4,14 @@ import { PageHeader, Panel, ProgressBar } from "@/components/app/panels";
 import { gradeTrend, results } from "@/lib/demo-data";
 
 export const Route = createFileRoute("/_authenticated/results")({
+  head: () => ({
+    meta: [
+      { title: "Results | EduBridge" },
+      { name: "description", content: "Term-by-term academic performance with subject-level breakdowns." },
+      { property: "og:title", content: "Results | EduBridge" },
+      { property: "og:description", content: "Term-by-term academic performance with subject-level breakdowns." },
+    ],
+  }),
   component: Results,
 });
 
