@@ -1,6 +1,8 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Play, Sparkles, TrendingUp } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { Button } from "@/components/ui/button";
+
 
 const data = [
   { m: "Mon", v: 62 },
@@ -37,15 +39,21 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button variant="hero" size="xl">
-                Start free trial
-                <ArrowRight />
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button variant="hero" size="xl" asChild>
+                <Link to="/auth">
+                  Start free trial
+                  <ArrowRight />
+                </Link>
               </Button>
-              <Button variant="glass" size="xl">
-                <Play />
-                Watch the tour
+              <Button variant="glass" size="xl" asChild>
+                <a href="#how-it-works">
+                  <Play />
+                  Watch the tour
+                </a>
               </Button>
             </div>
+
 
             <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4">
               {[
