@@ -39,7 +39,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+
               <Button variant="hero" size="xl" asChild>
                 <Link to="/auth">
                   Start free trial
