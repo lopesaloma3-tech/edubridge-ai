@@ -53,12 +53,13 @@ export function Navbar() {
 
         <div className="ml-auto flex items-center gap-2 lg:ml-2">
           <ThemeToggle />
-          <Button variant="ghost" className="hidden sm:inline-flex">
-            Sign in
+          <Button variant="ghost" className="hidden sm:inline-flex" asChild>
+            <Link to="/auth">Sign in</Link>
           </Button>
-          <Button variant="hero" className="hidden sm:inline-flex">
-            Get started
+          <Button variant="hero" className="hidden sm:inline-flex" asChild>
+            <Link to="/auth">Get started</Link>
           </Button>
+
           <Button
             variant="glass"
             size="icon"
@@ -85,9 +86,18 @@ export function Navbar() {
               </a>
             ))}
             <div className="mt-2 grid grid-cols-2 gap-2">
-              <Button variant="outline">Sign in</Button>
-              <Button variant="hero">Get started</Button>
+              <Button variant="outline" asChild>
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  Sign in
+                </Link>
+              </Button>
+              <Button variant="hero" asChild>
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  Get started
+                </Link>
+              </Button>
             </div>
+
           </div>
         </div>
       )}

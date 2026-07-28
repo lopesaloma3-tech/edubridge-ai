@@ -1,4 +1,6 @@
+import { Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -73,9 +75,10 @@ export function Pricing() {
               <h3 className="text-sm font-semibold tracking-tight">{p.name}</h3>
               <p className="mt-4 text-4xl font-semibold tracking-tight">{p.price}</p>
               <p className="mt-1 text-xs text-muted-foreground">{p.note}</p>
-              <Button variant={p.highlight ? "hero" : "outline"} size="lg" className="mt-6 w-full">
-                {p.cta}
+              <Button variant={p.highlight ? "hero" : "outline"} size="lg" className="mt-6 w-full" asChild>
+                <Link to="/auth">{p.cta}</Link>
               </Button>
+
               <ul className="mt-6 space-y-3">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-2.5 text-sm text-muted-foreground">
