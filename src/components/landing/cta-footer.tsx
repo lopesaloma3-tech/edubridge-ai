@@ -1,5 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 
 export function CtaFooter() {
   return (
@@ -14,14 +16,17 @@ export function CtaFooter() {
               Start free with up to 100 students. No credit card, no migration headache.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button size="xl" variant="glass" className="text-primary-foreground">
-                Book a demo
+              <Button size="xl" variant="glass" className="text-primary-foreground" asChild>
+                <Link to="/auth">Book a demo</Link>
               </Button>
-              <Button size="xl" className="bg-card text-card-foreground hover:bg-card/90">
-                Get started
-                <ArrowRight />
+              <Button size="xl" className="bg-card text-card-foreground hover:bg-card/90" asChild>
+                <Link to="/auth">
+                  Get started
+                  <ArrowRight />
+                </Link>
               </Button>
             </div>
+
           </div>
         </div>
       </section>
