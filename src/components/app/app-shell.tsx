@@ -11,6 +11,7 @@ import {
   Menu,
   MessageSquare,
   Settings,
+  Shield,
   Sparkles,
   Trophy,
   X,
@@ -31,6 +32,7 @@ const nav: NavItem[] = [
   { label: "Fees", to: "/fees", icon: CreditCard, roles: ["student", "parent", "admin"] },
   { label: "Messages", to: "/messages", icon: MessageSquare },
   { label: "AI Assistant", to: "/ai-assistant", icon: Sparkles },
+  { label: "Super Admin", to: "/super-admin", icon: Shield, roles: ["super_admin"] },
   { label: "Settings", to: "/settings", icon: Settings },
 ];
 
@@ -39,6 +41,7 @@ const roleLabel: Record<AppRole, string> = {
   teacher: "Teacher portal",
   parent: "Parent portal",
   admin: "Admin console",
+  super_admin: "Super Admin",
 };
 
 export function AppShell() {

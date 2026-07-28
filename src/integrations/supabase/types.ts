@@ -62,6 +62,66 @@ export type Database = {
         }
         Relationships: []
       }
+      system_settings: {
+        Row: {
+          id: string
+          key: string
+          value: Json
+          description: string | null
+          updated_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          key: string
+          value: Json
+          description?: string | null
+          updated_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          key?: string
+          value?: Json
+          description?: string | null
+          updated_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      admin_audit_log: {
+        Row: {
+          id: string
+          actor_id: string
+          action: string
+          target_type: string | null
+          target_id: string | null
+          details: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          actor_id: string
+          action: string
+          target_type?: string | null
+          target_id?: string | null
+          details?: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          actor_id?: string
+          action?: string
+          target_type?: string | null
+          target_id?: string | null
+          details?: Json
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -76,7 +136,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "student" | "teacher" | "parent" | "admin"
+      app_role: "student" | "teacher" | "parent" | "admin" | "super_admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -204,7 +264,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["student", "teacher", "parent", "admin"],
+      app_role: ["student", "teacher", "parent", "admin", "super_admin"],
     },
   },
 } as const

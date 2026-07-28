@@ -61,6 +61,12 @@ const statsByRole = {
     { label: "Fee collection", value: "88%", hint: "$412k collected", icon: CreditCard },
     { label: "Attendance", value: "95%", hint: "Campus-wide", icon: CalendarCheck },
   ],
+  super_admin: [
+    { label: "Total Users", value: "1,380", hint: "All registered", icon: Users },
+    { label: "Staff", value: "96", hint: "12 departments", icon: BookOpen },
+    { label: "Fee collection", value: "88%", hint: "$412k collected", icon: CreditCard },
+    { label: "System Health", value: "100%", hint: "All services up", icon: CalendarCheck },
+  ],
 } as const;
 
 function Dashboard() {

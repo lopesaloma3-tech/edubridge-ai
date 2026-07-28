@@ -21,6 +21,12 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticated/courses'
 import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
 import { Route as AuthenticatedAiAssistantRouteImport } from './routes/_authenticated/ai-assistant'
+import { Route as AuthenticatedSuperAdminRouteImport } from './routes/_authenticated/super-admin'
+import { Route as AuthenticatedSuperAdminIndexRouteImport } from './routes/_authenticated/super-admin/index'
+import { Route as AuthenticatedSuperAdminUsersRouteImport } from './routes/_authenticated/super-admin/users'
+import { Route as AuthenticatedSuperAdminRolesRouteImport } from './routes/_authenticated/super-admin/roles'
+import { Route as AuthenticatedSuperAdminSettingsRouteImport } from './routes/_authenticated/super-admin/settings'
+import { Route as AuthenticatedSuperAdminAuditLogRouteImport } from './routes/_authenticated/super-admin/audit-log'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -82,6 +88,36 @@ const AuthenticatedAiAssistantRoute =
     path: '/ai-assistant',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSuperAdminRoute = AuthenticatedSuperAdminRouteImport.update({
+  id: '/super-admin',
+  path: '/super-admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSuperAdminIndexRoute = AuthenticatedSuperAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedSuperAdminRoute,
+} as any)
+const AuthenticatedSuperAdminUsersRoute = AuthenticatedSuperAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedSuperAdminRoute,
+} as any)
+const AuthenticatedSuperAdminRolesRoute = AuthenticatedSuperAdminRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => AuthenticatedSuperAdminRoute,
+} as any)
+const AuthenticatedSuperAdminSettingsRoute = AuthenticatedSuperAdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedSuperAdminRoute,
+} as any)
+const AuthenticatedSuperAdminAuditLogRoute = AuthenticatedSuperAdminAuditLogRouteImport.update({
+  id: '/audit-log',
+  path: '/audit-log',
+  getParentRoute: () => AuthenticatedSuperAdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,6 +131,12 @@ export interface FileRoutesByFullPath {
   '/messages': typeof AuthenticatedMessagesRoute
   '/results': typeof AuthenticatedResultsRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/super-admin': typeof AuthenticatedSuperAdminRouteWithChildren
+  '/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
+  '/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/super-admin/roles': typeof AuthenticatedSuperAdminRolesRoute
+  '/super-admin/settings': typeof AuthenticatedSuperAdminSettingsRoute
+  '/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -108,6 +150,12 @@ export interface FileRoutesByTo {
   '/messages': typeof AuthenticatedMessagesRoute
   '/results': typeof AuthenticatedResultsRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/super-admin': typeof AuthenticatedSuperAdminRouteWithChildren
+  '/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
+  '/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/super-admin/roles': typeof AuthenticatedSuperAdminRolesRoute
+  '/super-admin/settings': typeof AuthenticatedSuperAdminSettingsRoute
+  '/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -123,6 +171,12 @@ export interface FileRoutesById {
   '/_authenticated/messages': typeof AuthenticatedMessagesRoute
   '/_authenticated/results': typeof AuthenticatedResultsRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/super-admin': typeof AuthenticatedSuperAdminRouteWithChildren
+  '/_authenticated/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
+  '/_authenticated/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/_authenticated/super-admin/roles': typeof AuthenticatedSuperAdminRolesRoute
+  '/_authenticated/super-admin/settings': typeof AuthenticatedSuperAdminSettingsRoute
+  '/_authenticated/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -138,6 +192,12 @@ export interface FileRouteTypes {
     | '/messages'
     | '/results'
     | '/settings'
+    | '/super-admin'
+    | '/super-admin/'
+    | '/super-admin/users'
+    | '/super-admin/roles'
+    | '/super-admin/settings'
+    | '/super-admin/audit-log'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -151,6 +211,12 @@ export interface FileRouteTypes {
     | '/messages'
     | '/results'
     | '/settings'
+    | '/super-admin'
+    | '/super-admin/'
+    | '/super-admin/users'
+    | '/super-admin/roles'
+    | '/super-admin/settings'
+    | '/super-admin/audit-log'
   id:
     | '__root__'
     | '/'
@@ -165,6 +231,12 @@ export interface FileRouteTypes {
     | '/_authenticated/messages'
     | '/_authenticated/results'
     | '/_authenticated/settings'
+    | '/_authenticated/super-admin'
+    | '/_authenticated/super-admin/'
+    | '/_authenticated/super-admin/users'
+    | '/_authenticated/super-admin/roles'
+    | '/_authenticated/super-admin/settings'
+    | '/_authenticated/super-admin/audit-log'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -260,8 +332,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAiAssistantRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/super-admin': {
+      id: '/_authenticated/super-admin'
+      path: '/super-admin'
+      fullPath: '/super-admin'
+      preLoaderRoute: typeof AuthenticatedSuperAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/super-admin/': {
+      id: '/_authenticated/super-admin/'
+      path: '/'
+      fullPath: '/super-admin/'
+      preLoaderRoute: typeof AuthenticatedSuperAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedSuperAdminRoute
+    }
+    '/_authenticated/super-admin/users': {
+      id: '/_authenticated/super-admin/users'
+      path: '/users'
+      fullPath: '/super-admin/users'
+      preLoaderRoute: typeof AuthenticatedSuperAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedSuperAdminRoute
+    }
+    '/_authenticated/super-admin/roles': {
+      id: '/_authenticated/super-admin/roles'
+      path: '/roles'
+      fullPath: '/super-admin/roles'
+      preLoaderRoute: typeof AuthenticatedSuperAdminRolesRouteImport
+      parentRoute: typeof AuthenticatedSuperAdminRoute
+    }
+    '/_authenticated/super-admin/settings': {
+      id: '/_authenticated/super-admin/settings'
+      path: '/settings'
+      fullPath: '/super-admin/settings'
+      preLoaderRoute: typeof AuthenticatedSuperAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedSuperAdminRoute
+    }
+    '/_authenticated/super-admin/audit-log': {
+      id: '/_authenticated/super-admin/audit-log'
+      path: '/audit-log'
+      fullPath: '/super-admin/audit-log'
+      preLoaderRoute: typeof AuthenticatedSuperAdminAuditLogRouteImport
+      parentRoute: typeof AuthenticatedSuperAdminRoute
+    }
   }
 }
+
+interface AuthenticatedSuperAdminRouteChildren {
+  AuthenticatedSuperAdminIndexRoute: typeof AuthenticatedSuperAdminIndexRoute
+  AuthenticatedSuperAdminUsersRoute: typeof AuthenticatedSuperAdminUsersRoute
+  AuthenticatedSuperAdminRolesRoute: typeof AuthenticatedSuperAdminRolesRoute
+  AuthenticatedSuperAdminSettingsRoute: typeof AuthenticatedSuperAdminSettingsRoute
+  AuthenticatedSuperAdminAuditLogRoute: typeof AuthenticatedSuperAdminAuditLogRoute
+}
+
+const AuthenticatedSuperAdminRouteChildren: AuthenticatedSuperAdminRouteChildren = {
+  AuthenticatedSuperAdminIndexRoute: AuthenticatedSuperAdminIndexRoute,
+  AuthenticatedSuperAdminUsersRoute: AuthenticatedSuperAdminUsersRoute,
+  AuthenticatedSuperAdminRolesRoute: AuthenticatedSuperAdminRolesRoute,
+  AuthenticatedSuperAdminSettingsRoute: AuthenticatedSuperAdminSettingsRoute,
+  AuthenticatedSuperAdminAuditLogRoute: AuthenticatedSuperAdminAuditLogRoute,
+}
+
+const AuthenticatedSuperAdminRouteWithChildren =
+  AuthenticatedSuperAdminRoute._addFileChildren(AuthenticatedSuperAdminRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAiAssistantRoute: typeof AuthenticatedAiAssistantRoute
@@ -272,6 +405,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMessagesRoute: typeof AuthenticatedMessagesRoute
   AuthenticatedResultsRoute: typeof AuthenticatedResultsRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedSuperAdminRoute: typeof AuthenticatedSuperAdminRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -283,6 +417,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMessagesRoute: AuthenticatedMessagesRoute,
   AuthenticatedResultsRoute: AuthenticatedResultsRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedSuperAdminRoute: AuthenticatedSuperAdminRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
-export type AppRole = "student" | "teacher" | "parent" | "admin";
+export type AppRole = "student" | "teacher" | "parent" | "admin" | "super_admin";
 
 export function useSession() {
   const [user, setUser] = useState<User | null>(null);
