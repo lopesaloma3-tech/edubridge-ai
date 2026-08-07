@@ -67,7 +67,7 @@ function UserManagement() {
         .from("user_roles")
         .delete()
         .eq("user_id", userId)
-        .eq("role", role as any);
+        .eq("role", role as AppRole);
       if (error) throw error;
 
       // Log audit
@@ -83,14 +83,12 @@ function UserManagement() {
       queryClient.invalidateQueries({ queryKey: ["super-admin-users"] });
       toast.success("Role removed successfully");
     },
-    onError: (err: any) => toast.error(err.message),
+    onError: (err: Error) => toast.error(err.message),
   });
 
   const addRoleMutation = useMutation({
     mutationFn: async ({ userId, role }: { userId: string; role: AppRole }) => {
-      const { error } = await supabase
-        .from("user_roles")
-        .insert({ user_id: userId, role });
+      const { error } = await supabase.from("user_roles").insert({ user_id: userId, role });
       if (error) throw error;
 
       const { data: me } = await supabase.auth.getUser();
@@ -105,7 +103,7 @@ function UserManagement() {
       queryClient.invalidateQueries({ queryKey: ["super-admin-users"] });
       toast.success("Role assigned successfully");
     },
-    onError: (err: any) => toast.error(err.message),
+    onError: (err: Error) => toast.error(err.message),
   });
 
   const filteredUsers = users?.filter(

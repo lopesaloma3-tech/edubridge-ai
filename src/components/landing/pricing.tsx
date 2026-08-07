@@ -75,7 +75,12 @@ export function Pricing() {
               <h3 className="text-sm font-semibold tracking-tight">{p.name}</h3>
               <p className="mt-4 text-4xl font-semibold tracking-tight">{p.price}</p>
               <p className="mt-1 text-xs text-muted-foreground">{p.note}</p>
-              <Button variant={p.highlight ? "hero" : "outline"} size="lg" className="mt-6 w-full" asChild>
+              <Button
+                variant={p.highlight ? "hero" : "outline"}
+                size="lg"
+                className="mt-6 w-full"
+                asChild
+              >
                 <Link to="/auth">{p.cta}</Link>
               </Button>
 

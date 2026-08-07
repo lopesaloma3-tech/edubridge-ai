@@ -125,11 +125,23 @@ function AuthPage() {
               <form onSubmit={signIn} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="si-email">Email</Label>
-                  <Input id="si-email" name="email" type="email" required placeholder="you@school.edu" />
+                  <Input
+                    id="si-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@school.edu"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="si-password">Password</Label>
-                  <Input id="si-password" name="password" type="password" required placeholder="••••••••" />
+                  <Input
+                    id="si-password"
+                    name="password"
+                    type="password"
+                    required
+                    placeholder="••••••••"
+                  />
                 </div>
                 <Button type="submit" variant="hero" className="w-full" disabled={busy}>
                   {busy && <Loader2 className="animate-spin" />} Sign in
@@ -145,7 +157,13 @@ function AuthPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="su-email">Email</Label>
-                  <Input id="su-email" name="email" type="email" required placeholder="you@school.edu" />
+                  <Input
+                    id="su-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@school.edu"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="su-password">Password</Label>

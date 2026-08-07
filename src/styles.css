@@ -123,7 +123,8 @@
   --sidebar-ring: oklch(0.623 0.188 259.8);
 
   --gradient-brand: linear-gradient(135deg, var(--primary), var(--brand));
-  --gradient-aurora: radial-gradient(
+  --gradient-aurora:
+    radial-gradient(
       60% 60% at 15% 10%,
       color-mix(in oklab, var(--primary) 28%, transparent),
       transparent 70%
@@ -140,7 +141,8 @@
     );
   --glass-bg: color-mix(in oklab, var(--card) 68%, transparent);
   --glass-border: color-mix(in oklab, var(--foreground) 8%, transparent);
-  --shadow-soft: 0 1px 2px color-mix(in oklab, var(--foreground) 6%, transparent),
+  --shadow-soft:
+    0 1px 2px color-mix(in oklab, var(--foreground) 6%, transparent),
     0 12px 32px -12px color-mix(in oklab, var(--foreground) 14%, transparent);
   --shadow-elevated: 0 24px 60px -24px color-mix(in oklab, var(--primary) 38%, transparent);
 }

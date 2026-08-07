@@ -127,7 +127,9 @@ export function AppShell() {
           </Button>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold">{roleLabel[role]}</p>
-            <p className="truncate text-xs text-muted-foreground">Welcome back, {name || "there"}</p>
+            <p className="truncate text-xs text-muted-foreground">
+              Welcome back, {name || "there"}
+            </p>
           </div>
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />

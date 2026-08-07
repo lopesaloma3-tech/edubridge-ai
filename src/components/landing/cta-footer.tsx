@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-
 export function CtaFooter() {
   return (
     <>
@@ -26,7 +25,6 @@ export function CtaFooter() {
                 </Link>
               </Button>
             </div>
-
           </div>
         </div>
       </section>

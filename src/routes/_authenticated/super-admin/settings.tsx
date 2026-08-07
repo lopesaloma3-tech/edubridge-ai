@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Panel } from "@/components/app/panels";
+import type { Json } from "@/integrations/supabase/types";
 
 export const Route = createFileRoute("/_authenticated/super-admin/settings")({
   component: SystemSettings,
@@ -21,10 +22,7 @@ function SystemSettings() {
   const { data: settings, isLoading } = useQuery({
     queryKey: ["system-settings"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("system_settings")
-        .select("*")
-        .order("key");
+      const { data, error } = await supabase.from("system_settings").select("*").order("key");
       if (error) throw error;
       return data || [];
     },
@@ -35,7 +33,7 @@ function SystemSettings() {
       const { data: me } = await supabase.auth.getUser();
 
       // Determine the JSON value to store
-      let jsonValue: any;
+      let jsonValue: Json;
       if (value === "true" || value === "false") {
         jsonValue = value === "true";
       } else if (!isNaN(Number(value)) && value.trim() !== "") {
@@ -64,10 +62,10 @@ function SystemSettings() {
       queryClient.invalidateQueries({ queryKey: ["system-settings"] });
       toast.success("Setting updated successfully");
     },
-    onError: (err: any) => toast.error(err.message),
+    onError: (err: Error) => toast.error(err.message),
   });
 
-  function getDisplayValue(value: any): string {
+  function getDisplayValue(value: Json): string {
     if (typeof value === "string") return value.replace(/^"|"$/g, "");
     return String(value);
   }

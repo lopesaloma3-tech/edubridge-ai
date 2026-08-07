@@ -9,28 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedResultsRouteImport } from './routes/_authenticated/results'
-import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
-import { Route as AuthenticatedFeesRouteImport } from './routes/_authenticated/fees'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticated/courses'
-import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAiAssistantRouteImport } from './routes/_authenticated/ai-assistant'
+import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
+import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticated/courses'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFeesRouteImport } from './routes/_authenticated/fees'
+import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
+import { Route as AuthenticatedResultsRouteImport } from './routes/_authenticated/results'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSuperAdminRouteImport } from './routes/_authenticated/super-admin'
 import { Route as AuthenticatedSuperAdminIndexRouteImport } from './routes/_authenticated/super-admin/index'
-import { Route as AuthenticatedSuperAdminUsersRouteImport } from './routes/_authenticated/super-admin/users'
+import { Route as AuthenticatedSuperAdminAuditLogRouteImport } from './routes/_authenticated/super-admin/audit-log'
 import { Route as AuthenticatedSuperAdminRolesRouteImport } from './routes/_authenticated/super-admin/roles'
 import { Route as AuthenticatedSuperAdminSettingsRouteImport } from './routes/_authenticated/super-admin/settings'
-import { Route as AuthenticatedSuperAdminAuditLogRouteImport } from './routes/_authenticated/super-admin/audit-log'
+import { Route as AuthenticatedSuperAdminUsersRouteImport } from './routes/_authenticated/super-admin/users'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -38,49 +42,10 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedResultsRoute = AuthenticatedResultsRouteImport.update({
-  id: '/results',
-  path: '/results',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedFeesRoute = AuthenticatedFeesRouteImport.update({
-  id: '/fees',
-  path: '/fees',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedCoursesRoute = AuthenticatedCoursesRouteImport.update({
-  id: '/courses',
-  path: '/courses',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
-  id: '/attendance',
-  path: '/attendance',
-  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAiAssistantRoute =
   AuthenticatedAiAssistantRouteImport.update({
@@ -88,36 +53,76 @@ const AuthenticatedAiAssistantRoute =
     path: '/ai-assistant',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCoursesRoute = AuthenticatedCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFeesRoute = AuthenticatedFeesRouteImport.update({
+  id: '/fees',
+  path: '/fees',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedResultsRoute = AuthenticatedResultsRouteImport.update({
+  id: '/results',
+  path: '/results',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSuperAdminRoute = AuthenticatedSuperAdminRouteImport.update({
   id: '/super-admin',
   path: '/super-admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSuperAdminIndexRoute = AuthenticatedSuperAdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedSuperAdminRoute,
-} as any)
-const AuthenticatedSuperAdminUsersRoute = AuthenticatedSuperAdminUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AuthenticatedSuperAdminRoute,
-} as any)
-const AuthenticatedSuperAdminRolesRoute = AuthenticatedSuperAdminRolesRouteImport.update({
-  id: '/roles',
-  path: '/roles',
-  getParentRoute: () => AuthenticatedSuperAdminRoute,
-} as any)
-const AuthenticatedSuperAdminSettingsRoute = AuthenticatedSuperAdminSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AuthenticatedSuperAdminRoute,
-} as any)
-const AuthenticatedSuperAdminAuditLogRoute = AuthenticatedSuperAdminAuditLogRouteImport.update({
-  id: '/audit-log',
-  path: '/audit-log',
-  getParentRoute: () => AuthenticatedSuperAdminRoute,
-} as any)
+const AuthenticatedSuperAdminIndexRoute =
+  AuthenticatedSuperAdminIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedSuperAdminRoute,
+  } as any)
+const AuthenticatedSuperAdminAuditLogRoute =
+  AuthenticatedSuperAdminAuditLogRouteImport.update({
+    id: '/audit-log',
+    path: '/audit-log',
+    getParentRoute: () => AuthenticatedSuperAdminRoute,
+  } as any)
+const AuthenticatedSuperAdminRolesRoute =
+  AuthenticatedSuperAdminRolesRouteImport.update({
+    id: '/roles',
+    path: '/roles',
+    getParentRoute: () => AuthenticatedSuperAdminRoute,
+  } as any)
+const AuthenticatedSuperAdminSettingsRoute =
+  AuthenticatedSuperAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedSuperAdminRoute,
+  } as any)
+const AuthenticatedSuperAdminUsersRoute =
+  AuthenticatedSuperAdminUsersRouteImport.update({
+    id: '/users',
+    path: '/users',
+    getParentRoute: () => AuthenticatedSuperAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -132,11 +137,11 @@ export interface FileRoutesByFullPath {
   '/results': typeof AuthenticatedResultsRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/super-admin': typeof AuthenticatedSuperAdminRouteWithChildren
-  '/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
-  '/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
   '/super-admin/roles': typeof AuthenticatedSuperAdminRolesRoute
   '/super-admin/settings': typeof AuthenticatedSuperAdminSettingsRoute
-  '/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
+  '/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -150,12 +155,11 @@ export interface FileRoutesByTo {
   '/messages': typeof AuthenticatedMessagesRoute
   '/results': typeof AuthenticatedResultsRoute
   '/settings': typeof AuthenticatedSettingsRoute
-  '/super-admin': typeof AuthenticatedSuperAdminRouteWithChildren
-  '/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
-  '/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
   '/super-admin/roles': typeof AuthenticatedSuperAdminRolesRoute
   '/super-admin/settings': typeof AuthenticatedSuperAdminSettingsRoute
-  '/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
+  '/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/super-admin': typeof AuthenticatedSuperAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -172,11 +176,11 @@ export interface FileRoutesById {
   '/_authenticated/results': typeof AuthenticatedResultsRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/super-admin': typeof AuthenticatedSuperAdminRouteWithChildren
-  '/_authenticated/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
-  '/_authenticated/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/_authenticated/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
   '/_authenticated/super-admin/roles': typeof AuthenticatedSuperAdminRolesRoute
   '/_authenticated/super-admin/settings': typeof AuthenticatedSuperAdminSettingsRoute
-  '/_authenticated/super-admin/audit-log': typeof AuthenticatedSuperAdminAuditLogRoute
+  '/_authenticated/super-admin/users': typeof AuthenticatedSuperAdminUsersRoute
+  '/_authenticated/super-admin/': typeof AuthenticatedSuperAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -193,11 +197,11 @@ export interface FileRouteTypes {
     | '/results'
     | '/settings'
     | '/super-admin'
-    | '/super-admin/'
-    | '/super-admin/users'
+    | '/super-admin/audit-log'
     | '/super-admin/roles'
     | '/super-admin/settings'
-    | '/super-admin/audit-log'
+    | '/super-admin/users'
+    | '/super-admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -211,12 +215,11 @@ export interface FileRouteTypes {
     | '/messages'
     | '/results'
     | '/settings'
-    | '/super-admin'
-    | '/super-admin/'
-    | '/super-admin/users'
+    | '/super-admin/audit-log'
     | '/super-admin/roles'
     | '/super-admin/settings'
-    | '/super-admin/audit-log'
+    | '/super-admin/users'
+    | '/super-admin'
   id:
     | '__root__'
     | '/'
@@ -232,11 +235,11 @@ export interface FileRouteTypes {
     | '/_authenticated/results'
     | '/_authenticated/settings'
     | '/_authenticated/super-admin'
-    | '/_authenticated/super-admin/'
-    | '/_authenticated/super-admin/users'
+    | '/_authenticated/super-admin/audit-log'
     | '/_authenticated/super-admin/roles'
     | '/_authenticated/super-admin/settings'
-    | '/_authenticated/super-admin/audit-log'
+    | '/_authenticated/super-admin/users'
+    | '/_authenticated/super-admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -248,18 +251,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -269,53 +265,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/results': {
-      id: '/_authenticated/results'
-      path: '/results'
-      fullPath: '/results'
-      preLoaderRoute: typeof AuthenticatedResultsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/messages': {
-      id: '/_authenticated/messages'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof AuthenticatedMessagesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/fees': {
-      id: '/_authenticated/fees'
-      path: '/fees'
-      fullPath: '/fees'
-      preLoaderRoute: typeof AuthenticatedFeesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/courses': {
-      id: '/_authenticated/courses'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof AuthenticatedCoursesRouteImport
+    '/_authenticated/ai-assistant': {
+      id: '/_authenticated/ai-assistant'
+      path: '/ai-assistant'
+      fullPath: '/ai-assistant'
+      preLoaderRoute: typeof AuthenticatedAiAssistantRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/attendance': {
@@ -325,11 +293,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/ai-assistant': {
-      id: '/_authenticated/ai-assistant'
-      path: '/ai-assistant'
-      fullPath: '/ai-assistant'
-      preLoaderRoute: typeof AuthenticatedAiAssistantRouteImport
+    '/_authenticated/courses': {
+      id: '/_authenticated/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof AuthenticatedCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/fees': {
+      id: '/_authenticated/fees'
+      path: '/fees'
+      fullPath: '/fees'
+      preLoaderRoute: typeof AuthenticatedFeesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/messages': {
+      id: '/_authenticated/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof AuthenticatedMessagesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/results': {
+      id: '/_authenticated/results'
+      path: '/results'
+      fullPath: '/results'
+      preLoaderRoute: typeof AuthenticatedResultsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/super-admin': {
@@ -346,11 +349,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSuperAdminIndexRouteImport
       parentRoute: typeof AuthenticatedSuperAdminRoute
     }
-    '/_authenticated/super-admin/users': {
-      id: '/_authenticated/super-admin/users'
-      path: '/users'
-      fullPath: '/super-admin/users'
-      preLoaderRoute: typeof AuthenticatedSuperAdminUsersRouteImport
+    '/_authenticated/super-admin/audit-log': {
+      id: '/_authenticated/super-admin/audit-log'
+      path: '/audit-log'
+      fullPath: '/super-admin/audit-log'
+      preLoaderRoute: typeof AuthenticatedSuperAdminAuditLogRouteImport
       parentRoute: typeof AuthenticatedSuperAdminRoute
     }
     '/_authenticated/super-admin/roles': {
@@ -367,34 +370,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSuperAdminSettingsRouteImport
       parentRoute: typeof AuthenticatedSuperAdminRoute
     }
-    '/_authenticated/super-admin/audit-log': {
-      id: '/_authenticated/super-admin/audit-log'
-      path: '/audit-log'
-      fullPath: '/super-admin/audit-log'
-      preLoaderRoute: typeof AuthenticatedSuperAdminAuditLogRouteImport
+    '/_authenticated/super-admin/users': {
+      id: '/_authenticated/super-admin/users'
+      path: '/users'
+      fullPath: '/super-admin/users'
+      preLoaderRoute: typeof AuthenticatedSuperAdminUsersRouteImport
       parentRoute: typeof AuthenticatedSuperAdminRoute
     }
   }
 }
 
 interface AuthenticatedSuperAdminRouteChildren {
-  AuthenticatedSuperAdminIndexRoute: typeof AuthenticatedSuperAdminIndexRoute
-  AuthenticatedSuperAdminUsersRoute: typeof AuthenticatedSuperAdminUsersRoute
+  AuthenticatedSuperAdminAuditLogRoute: typeof AuthenticatedSuperAdminAuditLogRoute
   AuthenticatedSuperAdminRolesRoute: typeof AuthenticatedSuperAdminRolesRoute
   AuthenticatedSuperAdminSettingsRoute: typeof AuthenticatedSuperAdminSettingsRoute
-  AuthenticatedSuperAdminAuditLogRoute: typeof AuthenticatedSuperAdminAuditLogRoute
+  AuthenticatedSuperAdminUsersRoute: typeof AuthenticatedSuperAdminUsersRoute
+  AuthenticatedSuperAdminIndexRoute: typeof AuthenticatedSuperAdminIndexRoute
 }
 
-const AuthenticatedSuperAdminRouteChildren: AuthenticatedSuperAdminRouteChildren = {
-  AuthenticatedSuperAdminIndexRoute: AuthenticatedSuperAdminIndexRoute,
-  AuthenticatedSuperAdminUsersRoute: AuthenticatedSuperAdminUsersRoute,
-  AuthenticatedSuperAdminRolesRoute: AuthenticatedSuperAdminRolesRoute,
-  AuthenticatedSuperAdminSettingsRoute: AuthenticatedSuperAdminSettingsRoute,
-  AuthenticatedSuperAdminAuditLogRoute: AuthenticatedSuperAdminAuditLogRoute,
-}
+const AuthenticatedSuperAdminRouteChildren: AuthenticatedSuperAdminRouteChildren =
+  {
+    AuthenticatedSuperAdminAuditLogRoute: AuthenticatedSuperAdminAuditLogRoute,
+    AuthenticatedSuperAdminRolesRoute: AuthenticatedSuperAdminRolesRoute,
+    AuthenticatedSuperAdminSettingsRoute: AuthenticatedSuperAdminSettingsRoute,
+    AuthenticatedSuperAdminUsersRoute: AuthenticatedSuperAdminUsersRoute,
+    AuthenticatedSuperAdminIndexRoute: AuthenticatedSuperAdminIndexRoute,
+  }
 
 const AuthenticatedSuperAdminRouteWithChildren =
-  AuthenticatedSuperAdminRoute._addFileChildren(AuthenticatedSuperAdminRouteChildren)
+  AuthenticatedSuperAdminRoute._addFileChildren(
+    AuthenticatedSuperAdminRouteChildren,
+  )
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAiAssistantRoute: typeof AuthenticatedAiAssistantRoute
@@ -432,3 +438,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -97,7 +97,6 @@ export function Navbar() {
                 </Link>
               </Button>
             </div>
-
           </div>
         </div>
       )}

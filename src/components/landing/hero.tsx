@@ -3,7 +3,6 @@ import { ArrowRight, Play, Sparkles, TrendingUp } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 
-
 const data = [
   { m: "Mon", v: 62 },
   { m: "Tue", v: 71 },
@@ -39,7 +38,6 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-
               <Button variant="hero" size="xl" asChild>
                 <Link to="/auth">
                   Start free trial
@@ -53,7 +51,6 @@ export function Hero() {
                 </a>
               </Button>
             </div>
-
 
             <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4">
               {[

@@ -37,10 +37,7 @@ function RoleManagement() {
       if (!roles || roles.length === 0) return [];
 
       const userIds = roles.map((r) => r.user_id);
-      const { data: profiles } = await supabase
-        .from("profiles")
-        .select("*")
-        .in("id", userIds);
+      const { data: profiles } = await supabase.from("profiles").select("*").in("id", userIds);
 
       return profiles || [];
     },
@@ -58,9 +55,7 @@ function RoleManagement() {
       if (findError) throw findError;
       if (!profile) throw new Error("User not found with that email address");
 
-      const { error } = await supabase
-        .from("user_roles")
-        .insert({ user_id: profile.id, role });
+      const { error } = await supabase.from("user_roles").insert({ user_id: profile.id, role });
 
       if (error) {
         if (error.code === "23505") throw new Error("User already has this role");
@@ -83,7 +78,7 @@ function RoleManagement() {
       toast.success("Role assigned successfully");
       setEmail("");
     },
-    onError: (err: any) => toast.error(err.message),
+    onError: (err: Error) => toast.error(err.message),
   });
 
   const roleDescriptions: Record<AppRole, string> = {
@@ -91,12 +86,16 @@ function RoleManagement() {
     teacher: "Can manage classes, grade assignments, and take attendance",
     parent: "Can view children's progress, fees, and communicate with teachers",
     admin: "Can manage school operations, fees, and view reports",
-    super_admin: "Full platform access: user management, system settings, and all admin capabilities",
+    super_admin:
+      "Full platform access: user management, system settings, and all admin capabilities",
   };
 
   return (
     <div className="space-y-6">
-      <Panel title="Assign Role by Email" description="Quickly assign a role to any registered user">
+      <Panel
+        title="Assign Role by Email"
+        description="Quickly assign a role to any registered user"
+      >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="flex-1 space-y-2">
             <Label htmlFor="assign-email">User Email</Label>

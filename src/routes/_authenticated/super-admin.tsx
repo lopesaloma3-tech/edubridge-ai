@@ -28,7 +28,10 @@ export const Route = createFileRoute("/_authenticated/super-admin")({
   head: () => ({
     meta: [
       { title: "Super Admin | EduBridge" },
-      { name: "description", content: "Super Admin control panel for EduBridge platform management." },
+      {
+        name: "description",
+        content: "Super Admin control panel for EduBridge platform management.",
+      },
     ],
   }),
 });
@@ -52,13 +55,16 @@ function SuperAdminLayout() {
         </span>
         <div>
           <h1 className="text-xl font-bold tracking-tight">Super Admin Panel</h1>
-          <p className="text-sm text-muted-foreground">Platform-wide management and configuration</p>
+          <p className="text-sm text-muted-foreground">
+            Platform-wide management and configuration
+          </p>
         </div>
       </div>
 
       <nav className="mb-6 flex flex-wrap gap-2 rounded-xl border border-border bg-card p-2">
         {adminNav.map((item) => {
-          const active = pathname === item.to || (item.to !== "/super-admin" && pathname.startsWith(item.to));
+          const active =
+            pathname === item.to || (item.to !== "/super-admin" && pathname.startsWith(item.to));
           const isExact = item.to === "/super-admin" && pathname === "/super-admin";
           return (
             <Link

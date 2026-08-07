@@ -12,9 +12,15 @@ export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
       { title: "Settings | EduBridge" },
-      { name: "description", content: "Manage your EduBridge profile, name and account preferences." },
+      {
+        name: "description",
+        content: "Manage your EduBridge profile, name and account preferences.",
+      },
       { property: "og:title", content: "Settings | EduBridge" },
-      { property: "og:description", content: "Manage your EduBridge profile, name and account preferences." },
+      {
+        property: "og:description",
+        content: "Manage your EduBridge profile, name and account preferences.",
+      },
     ],
   }),
   component: Settings,
@@ -31,7 +37,10 @@ function Settings() {
     e.preventDefault();
     if (!user) return;
     setSaving(true);
-    const { error } = await supabase.from("profiles").update({ full_name: fullName }).eq("id", user.id);
+    const { error } = await supabase
+      .from("profiles")
+      .update({ full_name: fullName })
+      .eq("id", user.id);
     setSaving(false);
     if (error) return toast.error(error.message);
     toast.success("Profile updated");

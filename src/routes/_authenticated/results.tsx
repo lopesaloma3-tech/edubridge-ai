@@ -1,91 +1,123 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useQuery } from "@tanstack/react-query";
 import { PageHeader, Panel, ProgressBar } from "@/components/app/panels";
-import { gradeTrend, results } from "@/lib/demo-data";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { getResultsForUser, type AssessmentResult } from "@/lib/supabase/academic";
 
 export const Route = createFileRoute("/_authenticated/results")({
   head: () => ({
     meta: [
       { title: "Results | EduBridge" },
-      { name: "description", content: "Term-by-term academic performance with subject-level breakdowns." },
+      {
+        name: "description",
+        content: "Term-by-term academic performance with subject-level breakdowns.",
+      },
       { property: "og:title", content: "Results | EduBridge" },
-      { property: "og:description", content: "Term-by-term academic performance with subject-level breakdowns." },
+      {
+        property: "og:description",
+        content: "Term-by-term academic performance with subject-level breakdowns.",
+      },
     ],
   }),
   component: Results,
 });
 
 function Results() {
+  const { user, role } = useCurrentUser();
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["results", user?.id, role],
+    enabled: !!user,
+    queryFn: () => getResultsForUser(user!.id, role),
+  });
+
+  const avg = data.length
+    ? Math.round(
+        data.reduce((sum: number, item: AssessmentResult) => sum + Number(item.score || 0), 0) /
+          data.length,
+      )
+    : 0;
+  const publishedCount = data.filter((item: AssessmentResult) => item.published_at).length;
+
   return (
-    <div className="animate-fade-in">
-      <PageHeader title="Results" subtitle="Term-by-term performance with subject breakdown." />
+    <div className="animate-fade-in space-y-4">
+      <PageHeader
+        title="Results"
+        subtitle="Assessment outcomes and academic performance from live records."
+      />
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Panel title="Score trend" className="lg:col-span-2">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={gradeTrend}>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-border" vertical={false} />
-                <XAxis dataKey="m" tickLine={false} axisLine={false} fontSize={12} />
-                <YAxis domain={[50, 100]} tickLine={false} axisLine={false} fontSize={12} width={30} />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="v"
-                  strokeWidth={3}
-                  dot={false}
-                  stroke="currentColor"
-                  className="text-primary"
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </Panel>
-
-        <Panel title="Term summary">
-          <p className="text-4xl font-semibold tracking-tight">A-</p>
-          <p className="mt-1 text-sm text-muted-foreground">Cumulative GPA 3.72</p>
+        <Panel title="Performance summary" className="lg:col-span-1">
+          <p className="text-4xl font-semibold tracking-tight">{avg}%</p>
+          <p className="mt-1 text-sm text-muted-foreground">Average across published assessments</p>
           <div className="mt-6 space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Class rank</span>
-              <span className="font-semibold">4 / 38</span>
+              <span className="text-muted-foreground">Assessments</span>
+              <span className="font-semibold">{data.length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Credits earned</span>
-              <span className="font-semibold">72</span>
+              <span className="text-muted-foreground">Published</span>
+              <span className="font-semibold">{publishedCount}</span>
             </div>
           </div>
         </Panel>
-      </div>
 
-      <Panel title="Subject breakdown" className="mt-4">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border text-left text-xs text-muted-foreground">
-                <th className="py-2 font-medium">Subject</th>
-                <th className="py-2 font-medium">Term</th>
-                <th className="py-2 font-medium">Score</th>
-                <th className="py-2 font-medium">Grade</th>
-                <th className="w-40 py-2 font-medium">Progress</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((r) => (
-                <tr key={r.subject} className="border-b border-border/60 last:border-0">
-                  <td className="py-3 font-medium">{r.subject}</td>
-                  <td className="py-3 text-muted-foreground">{r.term}</td>
-                  <td className="py-3">{r.score}</td>
-                  <td className="py-3 font-semibold">{r.grade}</td>
-                  <td className="py-3">
-                    <ProgressBar value={r.score} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Panel>
+        <Panel title="Assessment breakdown" className="lg:col-span-2">
+          {isLoading ? (
+            <p className="text-sm text-muted-foreground">Loading results...</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left text-xs text-muted-foreground">
+                    <th className="py-2 font-medium">Assessment</th>
+                    <th className="py-2 font-medium">Course</th>
+                    <th className="py-2 font-medium">Type</th>
+                    <th className="py-2 font-medium">Score</th>
+                    <th className="py-2 font-medium">Grade</th>
+                    <th className="w-40 py-2 font-medium">Progress</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((result: AssessmentResult) => {
+                    const maxScore = Number(result.assessments?.max_score ?? 100) || 100;
+                    const percentage = Math.min(
+                      100,
+                      Math.round((Number(result.score || 0) / maxScore) * 100),
+                    );
+                    return (
+                      <tr key={result.id} className="border-b border-border/60 last:border-0">
+                        <td className="py-3 font-medium">
+                          {result.assessments?.title ?? "Assessment"}
+                        </td>
+                        <td className="py-3 text-muted-foreground">
+                          {result.assessments?.courses?.title ?? "Course"}
+                        </td>
+                        <td className="py-3 capitalize">
+                          {String(result.assessments?.assessment_type ?? "other").replace("_", " ")}
+                        </td>
+                        <td className="py-3">
+                          {result.score} / {maxScore}
+                        </td>
+                        <td className="py-3 font-semibold">{result.grade ?? "—"}</td>
+                        <td className="py-3">
+                          <ProgressBar value={percentage} />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                  {data.length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="py-6 text-center text-sm text-muted-foreground">
+                        No results have been published yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Panel>
+      </div>
     </div>
   );
 }
