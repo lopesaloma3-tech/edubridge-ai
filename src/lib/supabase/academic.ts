@@ -169,7 +169,7 @@ export async function getAccessibleCourses(
   const { data, error } = await query;
   if (error) formatSupabaseError(error);
 
-  return ((data ?? []) as CourseRow[]).map((course) => ({
+  return ((data ?? []) as unknown as CourseRow[]).map((course) => ({
     id: course.id,
     code: course.code,
     title: course.title,

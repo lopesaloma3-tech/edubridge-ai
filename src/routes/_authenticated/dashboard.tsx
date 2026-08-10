@@ -292,25 +292,39 @@ function Dashboard() {
           description="Recent academic activity"
         >
           <ul className="divide-y divide-border">
-            {(role === "teacher" ? results.slice(0, 6) : assignments).map((item) => (
-              <li key={item.id} className="flex items-center justify-between gap-3 py-3">
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">
-                    {item.title ?? item.assessments?.title ?? "Item"}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {item.due_at
-                      ? `Due ${new Date(item.due_at).toLocaleDateString()}`
-                      : item.published_at
-                        ? `Published ${new Date(item.published_at).toLocaleDateString()}`
-                        : "Recorded"}
-                  </p>
-                </div>
-                <span className="shrink-0 rounded-full border border-border px-2.5 py-1 text-xs capitalize">
-                  {item.status ?? item.grade ?? "Open"}
-                </span>
-              </li>
-            ))}
+            {role === "teacher"
+              ? results.slice(0, 6).map((result) => (
+                  <li key={result.id} className="flex items-center justify-between gap-3 py-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">
+                        {result.assessments?.title ?? "Assessment"}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {result.published_at
+                          ? `Published ${new Date(result.published_at).toLocaleDateString()}`
+                          : "Pending"}
+                      </p>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-border px-2.5 py-1 text-xs capitalize">
+                      {result.grade ?? "—"}
+                    </span>
+                  </li>
+                ))
+              : assignments.map((item) => (
+                  <li key={item.id} className="flex items-center justify-between gap-3 py-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{item.title}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {item.due_at
+                          ? `Due ${new Date(item.due_at).toLocaleDateString()}`
+                          : "No due date"}
+                      </p>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-border px-2.5 py-1 text-xs capitalize">
+                      {item.status}
+                    </span>
+                  </li>
+                ))}
             {(role === "teacher" ? results.length === 0 : assignments.length === 0) && (
               <li className="py-3 text-sm text-muted-foreground">No recent activity yet.</li>
             )}

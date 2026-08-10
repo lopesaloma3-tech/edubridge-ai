@@ -1,5 +1,6 @@
 import type { AppRole } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 
 export async function getAllUsersWithRoles() {
   const { data: profiles, error: profilesError } = await supabase
@@ -38,7 +39,7 @@ export async function writeAuditLog(
     action,
     target_type: targetType ?? null,
     target_id: targetId ?? null,
-    details: details ?? {},
+    details: details !== undefined ? (details as Json) : null,
   });
   if (error) throw error;
 }
