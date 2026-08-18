@@ -207,22 +207,22 @@ export async function getCourseAssignments(courseId: string, userId: string, rol
     .order("due_at", { ascending: true });
   if (error) formatSupabaseError(error);
 
+  const submissionMap = new Map<string, AssignmentSubmissionRow>();
   if (role === "student" || role === "parent") {
     const { data: submissions, error: submissionError } = await supabase
       .from("assignment_submissions")
       .select("assignment_id, status, score, submitted_at")
       .eq("student_user_id", userId);
     if (submissionError) formatSupabaseError(submissionError);
-    const submissionMap = new Map(
-      ((submissions ?? []) as AssignmentSubmissionRow[]).map((item) => [item.assignment_id, item]),
-    );
-    return (assignments ?? []).map((assignment) => ({
-      ...assignment,
-      submission: submissionMap.get(assignment.id) ?? null,
-    }));
+    for (const item of (submissions ?? []) as AssignmentSubmissionRow[]) {
+      submissionMap.set(item.assignment_id, item);
+    }
   }
 
-  return assignments ?? [];
+  return (assignments ?? []).map((assignment) => ({
+    ...assignment,
+    submission: submissionMap.get(assignment.id) ?? null,
+  }));
 }
 
 export async function getCourseQuizzes(courseId: string, userId: string, role: AppRole) {
@@ -233,22 +233,22 @@ export async function getCourseQuizzes(courseId: string, userId: string, role: A
     .order("created_at", { ascending: false });
   if (error) formatSupabaseError(error);
 
+  const attemptMap = new Map<string, QuizAttemptRow>();
   if (role === "student" || role === "parent") {
     const { data: attempts, error: attemptError } = await supabase
       .from("quiz_attempts")
       .select("quiz_id, status, score, submitted_at")
       .eq("student_user_id", userId);
     if (attemptError) formatSupabaseError(attemptError);
-    const attemptMap = new Map(
-      ((attempts ?? []) as QuizAttemptRow[]).map((item) => [item.quiz_id, item]),
-    );
-    return (quizzes ?? []).map((quiz) => ({
-      ...quiz,
-      attempt: attemptMap.get(quiz.id) ?? null,
-    }));
+    for (const item of (attempts ?? []) as QuizAttemptRow[]) {
+      attemptMap.set(item.quiz_id, item);
+    }
   }
 
-  return quizzes ?? [];
+  return (quizzes ?? []).map((quiz) => ({
+    ...quiz,
+    attempt: attemptMap.get(quiz.id) ?? null,
+  }));
 }
 
 export async function getCourseAnnouncements(courseId: string) {
