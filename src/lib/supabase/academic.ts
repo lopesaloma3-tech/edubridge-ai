@@ -207,22 +207,22 @@ export async function getCourseAssignments(courseId: string, userId: string, rol
     .order("due_at", { ascending: true });
   if (error) formatSupabaseError(error);
 
+  const submissionMap = new Map<string, AssignmentSubmissionRow>();
   if (role === "student" || role === "parent") {
     const { data: submissions, error: submissionError } = await supabase
       .from("assignment_submissions")
       .select("assignment_id, status, score, submitted_at")
       .eq("student_user_id", userId);
     if (submissionError) formatSupabaseError(submissionError);
-    const submissionMap = new Map(
-      ((submissions ?? []) as AssignmentSubmissionRow[]).map((item) => [item.assignment_id, item]),
-    );
-    return (assignments ?? []).map((assignment) => ({
-      ...assignment,
-      submission: submissionMap.get(assignment.id) ?? null,
-    }));
+    for (const item of (submissions ?? []) as AssignmentSubmissionRow[]) {
+      submissionMap.set(item.assignment_id, item);
+    }
   }
 
-  return assignments ?? [];
+  return (assignments ?? []).map((assignment) => ({
+    ...assignment,
+    submission: submissionMap.get(assignment.id) ?? null,
+  }));
 }
 
 export async function getCourseQuizzes(courseId: string, userId: string, role: AppRole) {
